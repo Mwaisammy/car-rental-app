@@ -23,7 +23,7 @@ const car = (app: Express) => {
     app.route("/cars").get(
 
     
-        // bothRoleAuth,
+        adminRoleAuth,
         async (req, res, next) => {
             try {
                 await getCarController(req, res);

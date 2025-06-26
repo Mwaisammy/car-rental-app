@@ -12,6 +12,7 @@ export const createUserService = async(customer: TICustomer) =>{
 
 
 
+
 //get user by email
 export const verifyUserService = async(email: string) => {
     await db.update(CustomerTable)

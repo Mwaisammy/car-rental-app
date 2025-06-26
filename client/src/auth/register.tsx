@@ -1,6 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { NavLink, useNavigate } from "react-router";
 import * as yup from "yup";
+import { usersAPI } from "../Features/user/userAPI";
+import toast from "react-hot-toast";
 
 type RegisterInputs = {
   firstName: string;
@@ -48,6 +51,9 @@ const schema = yup.object({
 });
 
 const Register = () => {
+  const navigate = useNavigate();
+  const [createUser] = usersAPI.useCreateUsersMutation();
+
   const {
     register,
     handleSubmit,
@@ -56,8 +62,23 @@ const Register = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<RegisterInputs> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<RegisterInputs> = async (data) => {
+    const { ...userData } = data;
+    console.log(userData);
+
+    try {
+      const response = await createUser(data).unwrap();
+      console.log("Response....", response);
+      toast.success(
+        "Registration successful! Please check your email to verify your account"
+      );
+      navigate("/register/verify", {
+        state: { email: data.email },
+      });
+    } catch (error) {
+      console.error("Error creating user", error);
+      toast.error("Registation failed. Please try again later");
+    }
   };
 
   return (
@@ -161,6 +182,14 @@ const Register = () => {
             Register
           </button>
         </form>
+
+        <div className="mt-4">
+          Have an a account?{" "}
+          <span className="text-sm text-blue-500 cursor-pointer">
+            {" "}
+            <NavLink to={"/login"}>Login</NavLink>
+          </span>
+        </div>
       </div>
     </div>
   );

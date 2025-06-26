@@ -1,16 +1,15 @@
-import React from "react";
 import NavBar from "../components/nav/NavBar";
-import Hero from "../components/Hero/Hero";
 import Footer from "../components/footer/Footer";
+import About from "../components/about/about";
 
-const LandingPage = () => {
+const AboutPage = () => {
   return (
     <>
       <NavBar />
-      <Hero />
+      <About />
       <Footer />
     </>
   );
 };
 
-export default LandingPage;
+export default AboutPage;

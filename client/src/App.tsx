@@ -1,7 +1,12 @@
-import LandingPage from "./pages/LandingPage";
-import Register from "./auth/register";
-import Login from "./auth/login";
+import { Toaster } from "react-hot-toast";
 import { createBrowserRouter, RouterProvider } from "react-router";
+import Login from "./auth/login";
+import Register from "./auth/register";
+import VerifyUser from "./auth/verifyUser";
+import AdminDashboard from "./dashboard/AdminDashboard.tsx/AdminDashboard";
+import AboutPage from "./pages/AboutPage";
+import LandingPage from "./pages/LandingPage";
+import Cars from "./dashboard/AdminDashboard.tsx/cars/cars";
 
 const router = createBrowserRouter([
   {
@@ -16,11 +21,67 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
+  {
+    path: "/about",
+    element: <AboutPage />,
+  },
+  {
+    path: "/register/verify",
+    element: <VerifyUser />,
+  },
+  {
+    path: "/admin/dashboard",
+    element: <AdminDashboard />,
+    children: [
+      {
+        path: "cars",
+        element: <Cars />,
+      },
+      {
+        path: "users",
+        element: <h1>Users</h1>,
+      },
+      {
+        path: "profile",
+        element: <h1>Profile</h1>,
+      },
+      {
+        path: "analytics",
+        element: <h1>Analytics</h1>,
+      },
+    ],
+  },
 ]);
 const App = () => {
   return (
     <>
       <RouterProvider router={router} />
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        gutter={8}
+        containerClassName=""
+        containerStyle={{}}
+        toastOptions={{
+          // Define default options
+          className: "",
+          duration: 5000,
+          removeDelay: 1000,
+          style: {
+            background: "#363636",
+            color: "#fff",
+          },
+
+          // Default options for specific types
+          success: {
+            duration: 3000,
+            iconTheme: {
+              primary: "green",
+              secondary: "black",
+            },
+          },
+        }}
+      />
     </>
   );
 };

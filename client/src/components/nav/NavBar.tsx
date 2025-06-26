@@ -1,10 +1,14 @@
 import { NavLink } from "react-router";
 import CarRental from "../../assets/car-rental.png";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../app/store";
 
 const NavBar = () => {
+  const currentUser = useSelector((state: RootState) => state.user);
+
   return (
-    <div className="navbar bg-base-100 shadow-sm">
-      <div className="navbar-start">
+    <div className="navbar  shadow-sm bg:linear-gradient-to-r from-rose-300 via-white to-blue-600">
+      <div className="navbar-start bg:linear-gradient-to-r from-rose-300 via-white to-blue-600">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
@@ -28,66 +32,65 @@ const NavBar = () => {
             className="menu menu-sm dropdown-content  rounded-box z-1 mt-3 w-52 p-2 shadow bg-gray-600 text-white h-[200px] gap-2"
           >
             <li>
-              <a>Home</a>
+              <NavLink to={"/"}>Home</NavLink>
             </li>
             <li>
-              <a>About</a>
-              <ul className="p-2">
-                <li>
-                  <a></a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
+              <NavLink to={"/about"}>About</NavLink>
             </li>
             <li>
-              <a href="">Register</a>
+              <NavLink to={"/dashboard"}>Dashboard</NavLink>
             </li>
             <li>
-              <a href="">Login</a>
+              <NavLink to={"/register"}>Register</NavLink>
+            </li>
+            <li>
+              <NavLink to={"/login"}>Login</NavLink>
             </li>
             <li>
               <a>Contact</a>
             </li>
           </ul>
         </div>
-        <img src={CarRental} alt="car-rental" className="size-16" />
+        <NavLink to={"/"}>
+          <img
+            src={CarRental}
+            alt="car-rental"
+            className="size-16 cursor-pointer"
+          />
+        </NavLink>
       </div>
 
       {/* Desktop mode */}
-      <div className="navbar-center hidden lg:flex">
+      <div className="navbar-center hidden lg:flex bg-linear-gradient-to-r from-rose-300 via-white to-blue-600">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Home</a>
+            <NavLink to={"/"}>Home</NavLink>
           </li>
           <li>
             <NavLink to={"/about"}>About</NavLink>
-            {/* <details>
-              <summary>About</summary>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </details> */}
           </li>
           <li>
-            <a>Dashboard</a>
+            <NavLink to={"/admin/dashboard/cars"}>Dashboard</NavLink>
           </li>
         </ul>
       </div>
       <div className="navbar-end flex gap-4 rounded-md">
-        <a href="" className="btn">
-          Login
-        </a>
-        <a className="btn">Register</a>
-        <a href="" className="btn btn-ghost">
-          Profile
-        </a>
+        <li className="btn">
+          <NavLink to={"/register"}>Register</NavLink>
+        </li>
+        <li className="btn">
+          <NavLink to={"/login"}>Login</NavLink>
+        </li>
+        <button
+          // onClick={""}
+          className="bg-gray-300 text-white rounded-full p-2 hover:text-white hover:bg-blue-500 transition-all duration-150 ease-in-out cursor-pointer"
+        >
+          {currentUser?.user
+            ? `${currentUser.user.first_name.charAt(
+                0
+              )}${currentUser.user.last_name.charAt(0)}`
+            : ""}
+        </button>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import CarCard from "./cards/CarCard";
+import Loading from "./Loading/CarsLoading";
 
 type Car = {
   carModel: string;
@@ -14,10 +15,12 @@ const API_URL = `http://localhost:8081/cars`;
 
 const FetchCars = () => {
   const [cars, setCars] = useState<Car[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchCars = async () => {
       try {
+        setIsLoading(true);
         const res = await fetch(API_URL);
         const result = await res.json();
         setCars(result.data);
@@ -27,6 +30,7 @@ const FetchCars = () => {
     };
 
     fetchCars();
+    setIsLoading(false);
   }, []);
   return (
     <div className="p-4 mt-4">
@@ -34,7 +38,9 @@ const FetchCars = () => {
         Cars
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
-        {cars ? (
+        {isLoading ? (
+          <Loading />
+        ) : cars ? (
           cars.map((car) => (
             <div key={car.locationID}>
               <CarCard car={car} />
