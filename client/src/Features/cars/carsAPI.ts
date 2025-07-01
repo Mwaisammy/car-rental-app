@@ -3,6 +3,7 @@ import { ApiDomain } from "../../utils/APIDomain"
 import type { RootState } from "../../app/store"
 
 export type TCar =  { 
+    carID: number,
     carModel: string,
      year: string, 
      color: string,
@@ -29,7 +30,7 @@ export type TCar =  {
         endpoints: (builder) => ({
             createCar: builder.mutation<TCar, Partial<TCar>>({
                 query :(newCar) => ({
-                    url: "/cars",
+                    url: '/car',
                     method: "POST",
                     body: newCar,
                 }),

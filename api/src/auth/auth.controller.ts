@@ -100,7 +100,8 @@ export const loginUserController = async (req: Request, res: Response) => {
         user_id: userExist.customerID,
         first_name: userExist.firstName,
         last_name: userExist.lastName,
-        email: userExist.email
+        email: userExist.email,
+        role:userExist.role
       },
     });
 

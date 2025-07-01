@@ -10,6 +10,11 @@ import { createCarService, deleteCarService, getCarService, getCarServiceById, u
 export const createCarController = async (req: Request, res: Response) => {
   try {
     const car = req.body;
+    //convert date to date object
+    if(car.year) {
+        car.year = new Date(car.year)
+    }
+
     // console.log(car)
     const created = await createCarService(car);
     if (!created) return res.json({ message: "Car not created" });
@@ -67,13 +72,17 @@ export const updateCarController = async(req: Request, res: Response) => {
         if(isNaN(id)) return res.json({message: "Invalid URL"})
         
         const car = req.body
-        const existingCar = await getCarServiceById(id)
+         //convert date to date object
+        if(car.year) {
+            car.year = new Date(car.year)
+        }
+            const existingCar = await getCarServiceById(id)
          if (!existingCar) return res.status(404).json({ message: "Car not found" });
 
          const updated = await updateCarService(id, car);
         if (!updated) return res.status(400).json({ message: "Car not   updated" });
 
-        return res.status(500).json({message: "Car was updated successfully"})
+        return res.status(200).json({message: "Car was updated successfully"})
 
 
 

@@ -7,6 +7,8 @@ import AdminDashboard from "./dashboard/AdminDashboard.tsx/AdminDashboard";
 import AboutPage from "./pages/AboutPage";
 import LandingPage from "./pages/LandingPage";
 import Cars from "./dashboard/AdminDashboard.tsx/cars/cars";
+import Users from "./dashboard/manageUsers/Users";
+import Profile from "./dashboard/AdminDashboard.tsx/Profile";
 
 const router = createBrowserRouter([
   {
@@ -39,11 +41,11 @@ const router = createBrowserRouter([
       },
       {
         path: "users",
-        element: <h1>Users</h1>,
+        element: <Users />,
       },
       {
         path: "profile",
-        element: <h1>Profile</h1>,
+        element: <Profile />,
       },
       {
         path: "analytics",

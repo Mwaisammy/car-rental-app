@@ -3,7 +3,7 @@ import { adminDrawerData } from "./drawerData";
 
 const AdminDrawer = () => {
   return (
-    <div>
+    <div className="">
       <h2 className="text-xl font-bold text-white p-4 border-b-2 border-gray-700">
         Dashboard Menu
       </h2>

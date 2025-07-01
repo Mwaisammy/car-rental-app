@@ -21,6 +21,7 @@ export const CustomerTable = pgTable("customer", {
   address: varchar("address", { length: 255 }).notNull(),
   password: varchar("password", { length: 255 }).notNull(),
   role: RoleEnum("role").default('user'), // Default role is 'user'
+  image_url: varchar("image_url", {length: 255}).default("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"),
   verificationCode: varchar("verificationCode", { length: 10 }),
   isVerified: boolean("isVerified").default(false),
 });

@@ -30,7 +30,7 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [loginUser] = loginAPI.useLoginUserMutation();
+  const [loginUser, { isLoading }] = loginAPI.useLoginUserMutation();
 
   const emailFormState = location.state?.email || "";
 
@@ -62,58 +62,67 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <div className="bg-white shadow-2xl flex flex-col w-full max-w-lg p-8 rounded-md">
-        <div>
-          <h2 className="text-center font-semibold text-xl md:text-2xl ">
-            Login
-          </h2>
+      {isLoading ? (
+        <div className="flex flex-col gap-4 items-center">
+          <span className="loading loading-bars loading-xl"></span>
+          <p className="text-center text-2xl font-semibold">
+            Logging in, Please wait..
+          </p>
         </div>
+      ) : (
+        <div className="bg-white shadow-2xl flex flex-col w-full max-w-lg p-8 rounded-md">
+          <div>
+            <h2 className="text-center font-semibold text-xl md:text-2xl ">
+              Login
+            </h2>
+          </div>
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-4 w-full  mt-4"
-        >
-          <input
-            type="email"
-            {...register("email")}
-            placeholder="Email"
-            className="input border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 w-full"
-            readOnly={!!emailFormState}
-          />
-          {errors.email && (
-            <span className="text-rose-500 text-sm">
-              {errors.email.message}
-            </span>
-          )}
-
-          <input
-            type="password"
-            {...register("password")}
-            placeholder="Password"
-            className="input border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 w-full"
-          />
-          {errors.password && (
-            <span className="text-rose-500 text-sm">
-              {errors.password.message}
-            </span>
-          )}
-
-          <button
-            type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600  p-2 rounded-md mt-4 text-white"
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-4 w-full  mt-4"
           >
-            Login
-          </button>
-        </form>
+            <input
+              type="email"
+              {...register("email")}
+              placeholder="Email"
+              className="input border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 w-full"
+              readOnly={!!emailFormState}
+            />
+            {errors.email && (
+              <span className="text-rose-500 text-sm">
+                {errors.email.message}
+              </span>
+            )}
 
-        <div className="mt-4">
-          Do not have an a account?{" "}
-          <span className="text-sm text-blue-500 cursor-pointer">
-            {" "}
-            <NavLink to={"/register"}>Register</NavLink>
-          </span>
+            <input
+              type="password"
+              {...register("password")}
+              placeholder="Password"
+              className="input border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 w-full"
+            />
+            {errors.password && (
+              <span className="text-rose-500 text-sm">
+                {errors.password.message}
+              </span>
+            )}
+
+            <button
+              type="submit"
+              className="w-full bg-blue-500 hover:bg-blue-600  p-2 rounded-md mt-4 text-white"
+            >
+              Login
+            </button>
+          </form>
+
+          <div className="mt-4">
+            Do not have an a account?{" "}
+            <span className="text-sm text-blue-500 cursor-pointer">
+              {" "}
+              <NavLink to={"/register"}>Register</NavLink>
+            </span>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

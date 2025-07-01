@@ -10,7 +10,9 @@ import { carsAPI } from "../Features/cars/carsAPI"
 const persistConfig = {
     key: 'root',
     version: 1,  
-    storage
+    storage,
+    whitelist: ['user']
+
 }
 
 // Reducers - a reducer is a function that takes the current state and an action, and returns a new state

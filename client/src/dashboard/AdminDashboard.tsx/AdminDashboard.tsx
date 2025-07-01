@@ -15,7 +15,7 @@ const AdminDashboard = () => {
   return (
     <div>
       <NavBar />
-      <div className="flex items-center bg-gray-700 p-4">
+      <div className="flex items-center bg-gray-800 p-4">
         <button
           onClick={handleDrawerToggle}
           className="mr-4 text-white text-2xl lg:hidden cursor-pointer "
@@ -29,7 +29,7 @@ const AdminDashboard = () => {
       </div>
       <div className="flex">
         <aside
-          className={`bg-gray-600 w-64 min-h-screen fixed top-0 
+          className={`bg-gray-950 w-64 min-h-screen fixed top-0 
             ${drawerOpen ? "" : "hidden"}
             lg:static lg:block
           `}
@@ -45,7 +45,7 @@ const AdminDashboard = () => {
             <AdminDrawer />
           </div>
         </aside>
-        <main className="bg-emerald-500 w-full min-h-screen">
+        <main className="bg-gray-900 text-white w-full min-h-screen">
           <Outlet />
         </main>
       </div>

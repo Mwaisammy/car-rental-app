@@ -26,7 +26,7 @@ const schema = yup.object({
 
 const VerifyUser = () => {
   const navigate = useNavigate();
-  const [VerifyUser] = usersAPI.useVerifyUserMutation();
+  const [VerifyUser, { isLoading }] = usersAPI.useVerifyUserMutation();
   const location = useLocation();
   const emailFormState = location.state?.email || "";
   const {
@@ -58,50 +58,59 @@ const VerifyUser = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <div className="bg-white shadow-2xl flex flex-col w-full max-w-lg p-8 rounded-md">
-        <div>
-          <h2 className="text-center capitalize font-semibold text-xl md:text-2xl ">
-            Verify your account
-          </h2>
+      {isLoading ? (
+        <div className="flex flex-col gap-4 items-center">
+          <span className="loading loading-bars loading-xl"></span>
+          <p className="text-center text-xl font-semibold">
+            Verifying. Please wait...
+          </p>
         </div>
+      ) : (
+        <div className="bg-white shadow-2xl flex flex-col w-full max-w-lg p-8 rounded-md">
+          <div>
+            <h2 className="text-center capitalize font-semibold text-xl md:text-2xl ">
+              Verify your account
+            </h2>
+          </div>
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-4 w-full  mt-4"
-        >
-          <input
-            type="email"
-            {...register("email")}
-            placeholder="Email"
-            className="input border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 w-full"
-            readOnly={!!emailFormState}
-          />
-          {errors.email && (
-            <span className="text-rose-500 text-sm">
-              {errors.email.message}
-            </span>
-          )}
-
-          <input
-            type="text"
-            {...register("verificationCode")}
-            placeholder="6 Digit Code"
-            className="input border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 w-full"
-          />
-          {errors.verificationCode && (
-            <span className="text-rose-500 text-sm">
-              {errors.verificationCode.message}
-            </span>
-          )}
-
-          <button
-            type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600  p-2 rounded-md mt-4 text-white"
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-4 w-full  mt-4"
           >
-            Verify
-          </button>
-        </form>
-      </div>
+            <input
+              type="email"
+              {...register("email")}
+              placeholder="Email"
+              className="input border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 w-full"
+              readOnly={!!emailFormState}
+            />
+            {errors.email && (
+              <span className="text-rose-500 text-sm">
+                {errors.email.message}
+              </span>
+            )}
+
+            <input
+              type="text"
+              {...register("verificationCode")}
+              placeholder="6 Digit Code"
+              className="input border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-600 w-full"
+            />
+            {errors.verificationCode && (
+              <span className="text-rose-500 text-sm">
+                {errors.verificationCode.message}
+              </span>
+            )}
+
+            <button
+              type="submit"
+              className="w-full bg-blue-500 hover:bg-blue-600  p-2 rounded-md mt-4 text-white"
+            >
+              Verify
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
